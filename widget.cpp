@@ -1,5 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include <QJsonDocument>        // for json print
+#include <QJsonParseError>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -39,7 +41,22 @@ void Widget::doDisconnected(){
     setStatus(true);
 }
 void Widget::doReadyRead(){
-    ui->pteMessage->insertPlainText(socket_.readAll());
+    // ui->pteMessage->insertPlainText(socket_.readAll());
+    QByteArray jsonData = socket_.readAll();
+
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &parseError);
+
+    // JSON 파싱에 성공했을 경우에만 정돈된 형태로 출력합니다.
+    if (parseError.error == QJsonParseError::NoError) {
+        // JSON을 Indented format으로 변환하여 보기 좋게 만듭니다.
+        QString formattedJsonString = jsonDoc.toJson(QJsonDocument::Indented);
+        ui->pteMessage->insertPlainText(formattedJsonString);
+    } else {
+        // JSON 데이터가 아니거나 파싱에 실패한 경우 원본 데이터를 출력합니다.
+        ui->pteMessage->insertPlainText("\nError\n");
+        ui->pteMessage->insertPlainText(jsonData);
+    }
 }
 void Widget::on_pbConnect_clicked()
 {
@@ -56,7 +73,7 @@ void Widget::on_pbDisconnect_clicked()
 }
 void Widget::on_pbClear_clicked()
 {
-
+    ui->pteMessage->clear();
 }
 void Widget::on_pbSend_clicked()
 {
