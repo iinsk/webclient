@@ -26,14 +26,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbClear">
+        <widget class="QPushButton" name="pbDisconnect">
          <property name="text">
           <string>Disconnect</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbDisconnect">
+        <widget class="QPushButton" name="pbClear">
          <property name="text">
           <string>Clear</string>
          </property>
@@ -51,15 +51,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lePort">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QCheckBox" name="le80">
          <property name="text">
           <string>80</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="le443">
+         <property name="text">
+          <string>443</string>
          </property>
         </widget>
        </item>

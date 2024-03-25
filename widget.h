@@ -19,9 +19,12 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    //QTcpSocket socket_;
+
+    //void setDefault();
+    void setStatus(bool able);
     QSslSocket socket_;
-    //QUdpSocket socket_;
+    //QTcpSocket socket_;
+
 public slots:
     void doConnected();     // have to make body
     void doDisconnected();
@@ -32,6 +35,14 @@ private slots:
     void on_pbClear_clicked();
 
     void on_pbSend_clicked();
+
+    void on_pbDisconnect_clicked();
+
+    //void on_lePortCheck_stateChanged(int arg1);
+
+    void on_le80_stateChanged(int arg1);
+
+    void on_le443_stateChanged(int arg1);
 
 private:
     Ui::Widget *ui;
